@@ -1,8 +1,11 @@
-const { CosmosClient } = require("@azure/cosmos");
+import { CosmosClient } from '@azure/cosmos';
+import dotenv from 'dotenv';
 
-const client = new CosmosClient({ endpoint: process.env["COSMOSDB_ENDPOINT"], key: process.env["COSMOSDB_KEY"] });
+dotenv.config();
 
-module.exports = async function (context, req) {
+// eslint-disable-next-line no-undef
+const client = new CosmosClient({ endpoint:"https://glaxydemo.documents.azure.com:443/", key: process.env["COSMOSDB_KEY"] });
+export default async function itemsFunction(context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     const database = client.database("SWAStore");
@@ -38,50 +41,51 @@ module.exports = async function (context, req) {
                 body: `Error retrieving items from the database: ${error.message}`
             };
         }
-    // Uncomment mutations to have CRUD access, leaving READ access only for demo purposes
-    // } else if(req.method === "POST"){ //create new item in the database
-    //     try {
-    //         const newItem = req.body;
-    //         const { resource: createdItem } = await container.items.create(newItem);
-    //         context.res = {
-    //             status: 201,
-    //             body: createdItem
-    //         };
-    //     } catch (error) {
-    //         context.res = {
-    //             status: 500,
-    //             body: `Error creating item in the database: ${error.message}`
-    //         };
-    //     }
-    // } else if (req.method === "PUT") {
-    //     try {
-    //         const itemId = req.params.id;
-    //         const updatedItem = req.body;
-    //         const { resource: replacedItem } = await container.item(itemId, itemId).replace(updatedItem);
-    //         context.res = {
-    //             status: 200,
-    //             body: replacedItem
-    //         };
-    //     } catch (error) {
-    //         context.res = {
-    //             status: 500,
-    //             body: `Error updating item in the database: ${error.message}`
-    //         };
-    //     }
-    // } else if (req.method === "DELETE") {
-    //     try {
-    //         const itemId = req.params.id;
-    //         await container.item(itemId, itemId).delete();
-    //         context.res = {
-    //             status: 204
-    //         };
-    //     } catch (error) {
-    //         console.log(error);
-    //         context.res = {
-    //             status: 500,
-    //             body: `Error deleting item from the database: ${error.message}`
-    //         };
-    //     }
+    } else if(req.method === "POST"){ //create new item in the database
+        try {
+            const newItem = req.body;
+            const { resource: createdItem } = await container.items.create(newItem);
+            context.res = {
+                status: 201,
+                body: createdItem
+            };
+        } catch (error) {
+
+            context.res = {
+                status: 500,
+                body: `Error creating item in the database: ${error.message}`
+            };
+        }
+    } else if (req.method === "PUT") {
+    //    define edit method
+        try {
+            const itemId = req.params.id;
+            const updatedItem = req.body;
+            const { resource: replacedItem } = await container.item(itemId, itemId).replace(updatedItem);
+            context.res = {
+                status: 200,
+                body: replacedItem
+            };
+        } catch (error) {
+            context.res = {
+                status: 500,
+                body: `Error updating item in the database: ${error.message}`
+            };
+
+    } }else if (req.method === "DELETE") {
+        try {
+            const itemId = req.params.id;
+            await container.item(itemId, itemId).delete();
+            context.res = {
+                status: 204
+            };
+        } catch (error) {
+            console.log(error);
+            context.res = {
+                status: 500,
+                body: `Error deleting item from the database: ${error.message}`
+            };
+        }
     } else {
         context.res = {
             status: 405,
@@ -89,3 +93,5 @@ module.exports = async function (context, req) {
         };
     }
 }
+
+
