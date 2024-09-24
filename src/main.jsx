@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -10,6 +11,9 @@ import SalesPage from "./pages/Sales/SalesPage.jsx";
 import CreateSalesPage from "./pages/Sales/CreateSalesPage.jsx";
 import EditSalesPage from "./pages/Sales/EditSalesPage.jsx";
 import OverviewPage from "./pages/Home/OverviewPage.jsx";
+
+// import fs from 'fs';
+// import nonExistentModule from 'non-existent-module'; 
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,7 @@ const router = createBrowserRouter([
     path: "/sales/edit/:id",
     element: <EditSalesPage />,
   },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

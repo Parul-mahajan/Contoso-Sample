@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Breadcrumb from '../../components/Breadcrumb';
 import RevenueCard from './OverviewRevenueCard';
+import TotalSalesCard from './TotalSalesCard'; // Import the new component
 
 const OverviewPage = () => {
   const [sales, setSales] = useState([]);
@@ -76,6 +77,7 @@ const OverviewPage = () => {
               <RevenueCard title="Past 30 Days Revenue" revenue={calculateRevenueForDays(30)} />
               <RevenueCard title="Past 90 Days Revenue" revenue={calculateRevenueForDays(90)} />
               <RevenueCard title="Past 365 Days Revenue" revenue={calculateRevenueForDays(365)} />
+              <TotalSalesCard totalSales={sales.length} /> {/* Add the TotalSalesCard */}
             </div>
 
             <div className="mt-8">

@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 const { CosmosClient } = require("@azure/cosmos");
-
+require('dotenv').config();
 const client = new CosmosClient({ endpoint: process.env["COSMOSDB_ENDPOINT"], key: process.env["COSMOSDB_KEY"] });
+
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');

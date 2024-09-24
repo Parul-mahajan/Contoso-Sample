@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
+
 
 const SalesPage = () => {
   const [sales, setSales] = useState([]);
@@ -18,11 +20,13 @@ const SalesPage = () => {
       })
       .then((data) => {
         setSales(data);
+
         fetchItemPrices();
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+     
   }, []);
 
   const fetchItemPrices = async () => {
@@ -51,7 +55,7 @@ const SalesPage = () => {
   const calculateTotalRevenue = (sale) => {
     return sale.items.reduce((acc, item) => {
       const itemPrice = itemPrices[item.id] || 0; // Use 0 if price is not available
-      return acc + itemPrice * item.quantity;
+      return (acc + itemPrice * item.quantity);
     }, 0);
   };
 

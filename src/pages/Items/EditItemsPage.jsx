@@ -47,6 +47,7 @@ const EditItemsPage = () => {
       navigate('/items');
     } catch (error) {
       console.error('Error updating item:', error);
+      
     }
   };
 
