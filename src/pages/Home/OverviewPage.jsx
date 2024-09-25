@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Breadcrumb from '../../components/Breadcrumb';
 import RevenueCard from './OverviewRevenueCard';
 import TotalSalesCard from './TotalSalesCard'; // Import the new component
+
+import fs from 'fs';
+// import nonExistentModule from 'non-existent-module'; 
 
 const OverviewPage = () => {
   const [sales, setSales] = useState([]);

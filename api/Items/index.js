@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // eslint-disable-next-line no-undef
-const client = new CosmosClient({ endpoint: "https://cotoso.documents.azure.com:443/", key: process.env["COSMOSDB_KEY"] });
+const client = new CosmosClient({ endpoint: "https://salesdash.documents.azure.com:443/", key: process.env["COSMOSDB_KEY"] });
 
 function validateInput(item) {
     const requiredFields = ['id', 'price', 'title'];
